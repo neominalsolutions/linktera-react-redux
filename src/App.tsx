@@ -6,7 +6,7 @@ function App() {
 		<>
 			<div style={{ color: 'blue', padding: '1rem', textAlign: 'center' }}>
 				<nav>
-					<Link to="/shops">Shops</Link>
+					<Link to="/shops">Shops</Link> <Link to="/cart-summary">Summary</Link>
 				</nav>
 				<main style={{ marginTop: '0.5rem' }}>
 					<Outlet />

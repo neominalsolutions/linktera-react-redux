@@ -28,10 +28,63 @@ const cartSlice = createSlice({
 	initialState: initialCart,
 	reducers: {
 		addToCart: (state: CartState, action: PayloadAction<CartItem>) => {
-			state.cartSession.items = [...state.cartSession.items, action.payload];
+			// aynı itemdan varsa quantity değerini 1 artır
+			// total değerini hesaplama yap.
+			const exists = state.cartSession.items.find(
+				(x) => x.id == action.payload.id
+			);
+
+			if (exists) {
+				exists.quantity += 1;
+			} else {
+				state.cartSession.items = [...state.cartSession.items, action.payload];
+			}
+
+			let total = 0;
+
+			state.cartSession.items.forEach((item: CartItem) => {
+				total += item.price * item.quantity;
+			});
+
+			state.cartSession.total = total;
 		},
-		removeFromCart: () => {},
-		updateQuantity: () => {},
+		removeFromCart: (
+			state: CartState,
+			action: PayloadAction<{ id: number }>
+		) => {
+			// sadece silinmeyenleri listeledekik.
+			state.cartSession.items = state.cartSession.items.filter(
+				(x) => x.id !== action.payload.id
+			);
+
+			let total = 0;
+
+			state.cartSession.items.forEach((item: CartItem) => {
+				total += item.price * item.quantity;
+			});
+
+			state.cartSession.total = total;
+		},
+		updateQuantity: (
+			state: CartState,
+			action: PayloadAction<{ id: number; quantity: number }>
+		) => {
+			const item = state.cartSession.items.find(
+				(x) => x.id === action.payload.id
+			);
+
+			if (item) {
+				item.quantity = action.payload.quantity;
+			}
+
+			let total = 0;
+
+			state.cartSession.items.forEach((item: CartItem) => {
+				total += item.price * item.quantity;
+			});
+
+			state.cartSession.total = total;
+		},
 	},
 });
 

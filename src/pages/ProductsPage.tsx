@@ -1,10 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useSelector } from 'react-redux';
-import { CartItem, addToCart } from '../store/slices/CartSlice';
-import { RootState, useAppDispatch } from '../store/store';
+import ProductionQuantityLimitsRounded from '@mui/icons-material/ProductionQuantityLimitsRounded';
+import {
+	Avatar,
+	Button,
+	Divider,
+	List,
+	ListItem,
+	ListItemAvatar,
+	ListItemText,
+} from '@mui/material';
+import { addToCart } from '../store/slices/CartSlice';
+import { useAppDispatch } from '../store/store';
+import CartSummary from './CartSummaryPage';
 
 function ProductPage() {
-	const cartState = useSelector((state: RootState) => state.cartState);
 	const dispatch = useAppDispatch();
 
 	const plist = [
@@ -49,30 +58,27 @@ function ProductPage() {
 
 	return (
 		<>
-			{plist.map((item) => {
-				return (
-					<div key={item.id}>
-						{item.name}
+			<List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+				{plist.map((item) => {
+					return (
+						<ListItem key={item.id}>
+							<ListItemAvatar>
+								<Avatar>
+									<ProductionQuantityLimitsRounded />
+								</Avatar>
+							</ListItemAvatar>
+							<ListItemText primary={item.name} secondary="Jan 7, 2014" />
+							<Button variant="outlined" onClick={() => onAddToCart(item)}>
+								Sepete Ekle
+							</Button>
+						</ListItem>
+					);
+				})}
+			</List>
 
-						<button onClick={() => onAddToCart(item)}>Sepete Ekle</button>
-					</div>
-				);
-			})}
+			<Divider />
 
-			<hr></hr>
-
-			{cartState && (
-				<>
-					{cartState.cartSession.items.map((item: CartItem) => {
-						return (
-							<div key={item.id}>
-								{item.name} x {item.quantity}
-							</div>
-						);
-					})}
-					<div>Total Price :{cartState.cartSession.total}</div>
-				</>
-			)}
+			<CartSummary />
 		</>
 	);
 }

@@ -3,8 +3,10 @@ import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 // import './index.css';
-import store from './store/store.ts';
+import '@fontsource/roboto/400.css';
+import CartSummaryPage from './pages/CartSummaryPage.tsx';
 import ProductPage from './pages/ProductsPage.tsx';
+import store from './store/store.ts';
 
 const router = createBrowserRouter([
 	{
@@ -14,6 +16,10 @@ const router = createBrowserRouter([
 			{
 				path: '/shops',
 				Component: ProductPage,
+			},
+			{
+				path: '/cart-summary',
+				Component: CartSummaryPage,
 			},
 		],
 	},
