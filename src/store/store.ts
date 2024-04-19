@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { cartReducer } from './slices/CartSlice';
+import { productReducer } from './slices/ProductSlice';
 
 const store = configureStore({
 	reducer: {
 		cartState: cartReducer, // store reducer ekledik. birden fazla reducer tanımlanabilir
+		productState: productReducer,
 	},
 });
 

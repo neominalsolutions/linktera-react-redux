@@ -7,6 +7,7 @@ import '@fontsource/roboto/400.css';
 import CartSummaryPage from './pages/CartSummaryPage.tsx';
 import ProductPage from './pages/ProductsPage.tsx';
 import store from './store/store.ts';
+import ProductsPageV2 from './pages/ProductsPageV2.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
 			{
 				path: '/cart-summary',
 				Component: CartSummaryPage,
+			},
+			{
+				path: '/shops2',
+				Component: ProductsPageV2,
 			},
 		],
 	},
